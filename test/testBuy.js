@@ -25,16 +25,22 @@ describe("BuyCoffee", ()=> {
             "aniket",
             "i should testing this contract right now lets see"
             );
+        
+        
         const name = await buyCoffee.person(0);
         // console.log(`${name.name}  ${name.message}`);
         expect(name.name).to.equal("Aniket");
         expect(name.messsage).to.equal("hello i am using");
+        const data = await buyCoffee.getMessage();
+        expect(data[0][2]).to.equal("Aniket");
+        expect(data[0][3]).to.equal("hello i am using");
     });
 
     it("Should test the withdraw function", async () => {
-        const [buyCoffee, owner, address1] = await loadFixture(deployFunctionFixture);
+        const {buyCoffee, owner, address1} = await loadFixture(deployFunctionFixture);
 
         expect(buyCoffee.connect(address1).withdraw()).to.be.revertedWith("only owner can withdraw the transaction");
-    })
+    });
+
 });
 
